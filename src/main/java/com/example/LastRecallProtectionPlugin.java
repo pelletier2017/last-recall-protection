@@ -1,7 +1,7 @@
 package com.example;
 
 import com.example.location.LocationHelper;
-import com.example.teleport.TeleportFilter;
+import com.example.teleport.TeleportFilterManager;
 import com.google.inject.Provides;
 
 import javax.inject.Inject;
@@ -15,6 +15,9 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Slf4j
 @PluginDescriptor(
@@ -30,6 +33,9 @@ public class LastRecallProtectionPlugin extends Plugin {
     @Inject
     private ChatListener chatListener;
 
+    @Inject
+    private TeleportFilterManager teleportFilterManager;
+
     boolean lastRecallWouldReset = false;
 
     boolean isLastRecallSaved = false;
@@ -40,14 +46,15 @@ public class LastRecallProtectionPlugin extends Plugin {
     @Subscribe
     public void onGameTick(GameTick event) {
         lastRecallWouldReset = LocationHelper.lastRecallWouldReset(client);
-        log.debug("lastRecallWouldReset=" + lastRecallWouldReset);
+        isLastRecallSaved = chatListener.isLastRecallSaved();
+//        log.debug("lastRecallWouldReset=" + lastRecallWouldReset);
     }
 
     @Subscribe
     public void onChatMessage(ChatMessage event) {
         chatListener.onChatMessage(event);
         isLastRecallSaved = chatListener.isLastRecallSaved();
-        log.debug("isLastRecallSaved=" + isLastRecallSaved);
+//        log.debug("isLastRecallSaved=" + isLastRecallSaved);
     }
 
     @Provides
@@ -59,25 +66,25 @@ public class LastRecallProtectionPlugin extends Plugin {
     @Subscribe(priority = PRIORITY)
     // This will run after the normal menu entry swapper, so it won't interfere with this plugin.
     public void onPostMenuSort(PostMenuSort event) {
-//        List<MenuAction> menuActionsToIgnore = List.of(
-//                MenuAction.CANCEL,
-//                MenuAction.WALK
-//        );
-//
-//        MenuEntry[] filteredEntries = Arrays.stream(client.getMenuEntries())
-//                .filter(menuEntry -> !menuActionsToIgnore.contains(menuEntry.getType()))
-//                .toArray(MenuEntry[]::new);
-//        if (filteredEntries.length == 0) {
-//            return;
-//        }
-//
-//        log.info("onPostMenuSort");
-//        for (MenuEntry entry : filteredEntries) {
-//            logMenuEntry(entry);
-//        }
+        List<MenuAction> menuActionsToIgnore = List.of(
+                MenuAction.CANCEL,
+                MenuAction.WALK
+        );
+
+        MenuEntry[] filteredEntries = Arrays.stream(client.getMenuEntries())
+                .filter(menuEntry -> !menuActionsToIgnore.contains(menuEntry.getType()))
+                .toArray(MenuEntry[]::new);
+        if (filteredEntries.length == 0) {
+            return;
+        }
+
+        log.info("onPostMenuSort");
+        for (MenuEntry entry : filteredEntries) {
+            logMenuEntry(entry);
+        }
         if (config.hide() && isLastRecallSaved && lastRecallWouldReset) {
-            log.debug("Filtering teleports");
-            MenuEntry[] filteredMenuEntries = TeleportFilter.filterAll(client.getMenuEntries());
+//            log.debug("Filtering teleports");
+            MenuEntry[] filteredMenuEntries = teleportFilterManager.filterAll(client.getMenuEntries());
             client.setMenuEntries(filteredMenuEntries);
         }
     }
