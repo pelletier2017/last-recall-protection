@@ -1,6 +1,6 @@
-package com.example.teleport.filter;
+package com.recall.teleport.filter;
 
-import com.example.teleport.search.SubstringNameSearch;
+import com.recall.teleport.search.SubstringNameSearch;
 import net.runelite.api.MenuAction;
 
 import java.util.List;

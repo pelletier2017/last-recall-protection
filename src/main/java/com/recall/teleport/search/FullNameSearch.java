@@ -1,8 +1,6 @@
-package com.example.teleport.search;
+package com.recall.teleport.search;
 
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.List;
 
 @Slf4j
 public class FullNameSearch extends NameSearch {

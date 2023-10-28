@@ -1,4 +1,4 @@
-package com.example.location;
+package com.recall.location;
 
 import net.runelite.api.Client;
 

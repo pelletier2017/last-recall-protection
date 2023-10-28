@@ -1,4 +1,4 @@
-package com.example.teleport.search;
+package com.recall.teleport.search;
 
 public class SubstringNameSearch extends NameSearch {
 

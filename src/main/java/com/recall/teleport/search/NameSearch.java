@@ -1,4 +1,4 @@
-package com.example.teleport.search;
+package com.recall.teleport.search;
 
 import lombok.extern.slf4j.Slf4j;
 

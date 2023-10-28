@@ -1,16 +1,12 @@
-package com.example.teleport.filter;
+package com.recall.teleport.filter;
 
-import com.example.teleport.search.FullNameSearch;
-import com.example.teleport.search.NameSearch;
-import com.example.teleport.search.SubstringNameSearch;
+import com.recall.teleport.search.NameSearch;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.ItemID;
 import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @Slf4j

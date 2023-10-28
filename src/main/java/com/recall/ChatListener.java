@@ -1,4 +1,4 @@
-package com.example;
+package com.recall;
 
 import net.runelite.api.events.ChatMessage;
 
