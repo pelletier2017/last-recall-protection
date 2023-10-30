@@ -120,7 +120,7 @@ public class LastRecallLockPlugin extends Plugin {
     }
 
     private boolean wouldOverrideRecall() {
-        return LocationHelper.lastRecallWouldReset(client) && chatListener.isLastRecallSaved();
+        return hasRecallOrb() && LocationHelper.lastRecallWouldReset(client) && chatListener.isLastRecallSaved();
     }
 
     private void updateInfoBox() {
