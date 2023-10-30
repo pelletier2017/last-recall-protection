@@ -22,24 +22,165 @@ public class TeleportFilterManager {
     private List<TeleportFilter> objectFilters;
 
     public TeleportFilterManager() {
-        // TODO add mory legs, kandarin headgear, scepter, karamja gloves, frem boots, wildy sword,
-        //  master spellbook, seed pod, burning amulet, chronacle, drakens, ring of shadows
-        //  house tabs, master book teleport scrolls
-        // todo do with/without easy teleports plugin AND in inventory and equipped
 
-        // house tabs, redirect house tabs
-        // combat bracelet
-        // skills necklace
-        // ring of wealth
-        // ring of returning
-        // digsite pendant
-        // eternal slayer ring
-        // amulet of the eye
-        // clue reward teleports
-        // go through list of other skill capes (fishing, max, etc?)
-
+        // TODO Easy Teleport plugin with colored names don't get hidden. Includes ring of shadows and book of the dead
         itemFilters = List.of(
+                // teleport scrolls
+                new TeleportItem(
+                        "nardah teleport",
+                        List.of(
+                                ItemID.NARDAH_TELEPORT
+                        ),
+                        List.of("Teleport")),
+                new TeleportItem(
+                        "digsite teleport",
+                        List.of(
+                                ItemID.DIGSITE_TELEPORT
+                        ),
+                        List.of("Teleport")),
+                new TeleportItem(
+                        "feldip hills teleport",
+                        List.of(
+                                ItemID.FELDIP_HILLS_TELEPORT
+                        ),
+                        List.of("Teleport")),
+                new TeleportItem(
+                        "lunar isle teleport",
+                        List.of(
+                                ItemID.LUNAR_ISLE_TELEPORT
+                        ),
+                        List.of("Teleport")),
+                new TeleportItem(
+                        "mort'ton teleport",
+                        List.of(
+                                ItemID.MORTTON_TELEPORT
+                        ),
+                        List.of("Teleport")),
+                new TeleportItem(
+                        "pest control teleport",
+                        List.of(
+                                ItemID.PEST_CONTROL_TELEPORT
+                        ),
+                        List.of("Teleport")),
+                new TeleportItem(
+                        "piscatoris teleport",
+                        List.of(
+                                ItemID.PISCATORIS_TELEPORT
+                        ),
+                        List.of("Teleport")),
+                new TeleportItem(
+                        "iorwerth camp teleport",
+                        List.of(
+                                ItemID.IORWERTH_CAMP_TELEPORT
+                        ),
+                        List.of("Teleport")),
+                new TeleportItem(
+                        "mos le'harmless teleport",
+                        List.of(
+                                ItemID.MOS_LEHARMLESS_TELEPORT
+                        ),
+                        List.of("Teleport")),
+                new TeleportItem(
+                        "lumberyard teleport",
+                        List.of(
+                                ItemID.LUMBERYARD_TELEPORT
+                        ),
+                        List.of("Teleport")),
+                new TeleportItem(
+                        "zul-andra teleport",
+                        List.of(
+                                ItemID.ZULANDRA_TELEPORT
+                        ),
+                        List.of("Teleport")),
+                new TeleportItem(
+                        "key master teleport",
+                        List.of(
+                                ItemID.KEY_MASTER_TELEPORT
+                        ),
+                        List.of("Teleport")),
+                new TeleportItem(
+                        "revenant cave teleport",
+                        List.of(
+                                ItemID.REVENANT_CAVE_TELEPORT
+                        ),
+                        List.of("Teleport")),
+                new TeleportItem(
+                        "watson teleport",
+                        List.of(
+                                ItemID.WATSON_TELEPORT
+                        ),
+                        List.of("Teleport")),
+
+                // teleport tablets
+                new TeleportItem(
+                        "teleport to house",
+                        List.of(
+                                ItemID.TELEPORT_TO_HOUSE
+                        ),
+                        List.of("Break", "Inside", "Outside", "Group")),
+                new TeleportItem(
+                        "pollnivneach teleport",
+                        List.of(
+                                ItemID.POLLNIVNEACH_TELEPORT
+                        ),
+                        List.of("Break")),
+                new TeleportItem(
+                        "taverly teleport",
+                        List.of(
+                                ItemID.TAVERLEY_TELEPORT
+                        ),
+                        List.of("Break")),
+                new TeleportItem(
+                        "rimmington teleport",
+                        List.of(
+                                ItemID.RIMMINGTON_TELEPORT
+                        ),
+                        List.of("Break")),
+                new TeleportItem(
+                        "hosidius teleport",
+                        List.of(
+                                ItemID.HOSIDIUS_TELEPORT
+                        ),
+                        List.of("Break")),
+                new TeleportItem(
+                        "rellekka teleport",
+                        List.of(
+                                ItemID.RELLEKKA_TELEPORT
+                        ),
+                        List.of("Break")),
+                new TeleportItem(
+                        "brimhaven teleport",
+                        List.of(
+                                ItemID.BRIMHAVEN_TELEPORT
+                        ),
+                        List.of("Break")),
+                new TeleportItem(
+                        "yanille teleport",
+                        List.of(
+                                ItemID.YANILLE_TELEPORT
+                        ),
+                        List.of("Break")),
+                new TeleportItem(
+                        "trollheim teleport",
+                        List.of(
+                                ItemID.TROLLHEIM_TELEPORT
+                        ),
+                        List.of("Break")),
+                new TeleportItem(
+                        "prifddinas teleport",
+                        List.of(
+                                ItemID.PRIFDDINAS_TELEPORT
+                        ),
+                        List.of("Break")),
+
                 // capes
+                new TeleportItem(
+                        "max cape",
+                        List.of(
+                                ItemID.MAX_CAPE,
+                                ItemID.MAX_CAPE_13342
+                        ),
+                        List.of("Teleports", "Warriors' Guild", "Fishing Teleports", "Crafting Guild", "Tele to POH", "POH Portals", "Other Teleports")),
                 new TeleportItem(
                         "farming cape",
                         List.of(
@@ -54,6 +195,34 @@ public class TeleportFilterManager {
                                 ItemID.CRAFTING_CAPET
                         ),
                         List.of("Teleport")),
+                new TeleportItem(
+                        "construction cape",
+                        List.of(
+                                ItemID.CONSTRUCT_CAPE,
+                                ItemID.CONSTRUCT_CAPET
+                        ),
+                        List.of("Teleport", "Tele to POH")),
+                new TeleportItem(
+                        "fishing cape",
+                        List.of(
+                                ItemID.FISHING_CAPE,
+                                ItemID.FISHING_CAPET
+                        ),
+                        List.of("Fishing Guild", "Otto's Grotto")),
+                new TeleportItem(
+                        "hunter cape",
+                        List.of(
+                                ItemID.HUNTER_CAPE,
+                                ItemID.HUNTER_CAPET
+                        ),
+                        List.of("Teleport")),
+                new TeleportItem(
+                        "strength cape",
+                        List.of(
+                                ItemID.STRENGTH_CAPE,
+                                ItemID.STRENGTH_CAPET
+                        ),
+                        List.of("Teleport", "Warriors' Guild")),
                 new TeleportItem(
                         "quest point cape",
                         List.of(
@@ -85,12 +254,27 @@ public class TeleportFilterManager {
 
                 // chargeable items
                 new TeleportItem(
+                        "hallowed crystal shard",
+                        List.of(
+                                ItemID.HALLOWED_CRYSTAL_SHARD
+                        ),
+                        List.of("Activate")),
+                new TeleportItem(
                         "ring of the elements",
                         List.of(
                                 ItemID.RING_OF_THE_ELEMENTS,
                                 ItemID.RING_OF_THE_ELEMENTS_26818
                         ),
                         List.of("Rub")),
+                new TeleportItem(
+                        "amulet of the eye",
+                        List.of(
+                                ItemID.AMULET_OF_THE_EYE,
+                                ItemID.AMULET_OF_THE_EYE_26990,
+                                ItemID.AMULET_OF_THE_EYE_26992,
+                                ItemID.AMULET_OF_THE_EYE_26994
+                        ),
+                        List.of("Teleport")),
                 new TeleportItem(
                         "enchanted lyre",
                         List.of(
@@ -220,6 +404,26 @@ public class TeleportFilterManager {
                                 ItemID.KANDARIN_HEADGEAR_2,
                                 ItemID.KANDARIN_HEADGEAR_3,
                                 ItemID.KANDARIN_HEADGEAR_4
+                        ),
+                        List.of("Teleport")),
+                new TeleportItem(
+                        "explorer's ring",
+                        List.of(
+                                ItemID.EXPLORERS_RING,
+                                ItemID.EXPLORERS_RING_1,
+                                ItemID.EXPLORERS_RING_2,
+                                ItemID.EXPLORERS_RING_3,
+                                ItemID.EXPLORERS_RING_4
+                        ),
+                        List.of("Teleport")),
+                new TeleportItem(
+                        "western banner",
+                        List.of(
+                                ItemID.WESTERN_BANNER,
+                                ItemID.WESTERN_BANNER_1,
+                                ItemID.WESTERN_BANNER_2,
+                                ItemID.WESTERN_BANNER_3,
+                                ItemID.WESTERN_BANNER_4
                         ),
                         List.of("Teleport")),
                 new TeleportItem(
@@ -439,8 +643,17 @@ public class TeleportFilterManager {
                                 ItemID.BURNING_AMULET4,
                                 ItemID.BURNING_AMULET5
                         ),
-                        List.of("Rub", "Chaos Temple", "Bandit Camp", "Lava Maze"))
-
+                        List.of("Rub", "Chaos Temple", "Bandit Camp", "Lava Maze")),
+                new TeleportItem(
+                        "ring of returning",
+                        List.of(
+                                ItemID.RING_OF_RETURNING1,
+                                ItemID.RING_OF_RETURNING2,
+                                ItemID.RING_OF_RETURNING3,
+                                ItemID.RING_OF_RETURNING4,
+                                ItemID.RING_OF_RETURNING5
+                        ),
+                        List.of("Rub"))
         );
 
         spellFilters = List.of(
