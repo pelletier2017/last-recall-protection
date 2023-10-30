@@ -27,14 +27,14 @@ import java.util.List;
 
 @Slf4j
 @PluginDescriptor(
-        name = "Last Recall Protection"
+        name = "Last Recall Lock"
 )
-public class LastRecallProtectionPlugin extends Plugin {
+public class LastRecallLockPlugin extends Plugin {
     @Inject
     private Client client;
 
     @Inject
-    private LastRecallProtectionConfig config;
+    private LastRecallLockConfig config;
 
     @Inject
     private ChatListener chatListener;
@@ -45,13 +45,7 @@ public class LastRecallProtectionPlugin extends Plugin {
     @Inject
     private InfoBoxManager infoBoxManager;
 
-    private InfoBoxGenerator infoBoxGenerator = new InfoBoxGenerator(this);
-
-    private boolean lastRecallWouldReset = false;
-
-    private boolean isLastRecallSaved = false;
-
-    boolean showingInfoBox = false;
+    private final InfoBoxGenerator infoBoxGenerator = new InfoBoxGenerator(this);
 
     private InfoBox oldInfoBox;
 
@@ -92,8 +86,7 @@ public class LastRecallProtectionPlugin extends Plugin {
     @Subscribe
     public void onChatMessage(ChatMessage event) {
         chatListener.onChatMessage(event);
-        isLastRecallSaved = chatListener.isLastRecallSaved();
-        log.debug("isLastRecallSaved=" + isLastRecallSaved);
+        log.debug("isLastRecallSaved=" + chatListener.isLastRecallSaved());
     }
 
 // Inspired by the official runelite menu entry swapper plugin, with some modification.
@@ -172,8 +165,8 @@ public class LastRecallProtectionPlugin extends Plugin {
     }
 
     @Provides
-    LastRecallProtectionConfig provideConfig(ConfigManager configManager) {
-        return configManager.getConfig(LastRecallProtectionConfig.class);
+    LastRecallLockConfig provideConfig(ConfigManager configManager) {
+        return configManager.getConfig(LastRecallLockConfig.class);
     }
 
 }

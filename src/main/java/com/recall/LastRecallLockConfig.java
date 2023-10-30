@@ -4,8 +4,8 @@ import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
-@ConfigGroup("lastRecallProtection")
-public interface LastRecallProtectionConfig extends Config {
+@ConfigGroup("lastRecallLock")
+public interface LastRecallLockConfig extends Config {
     @ConfigItem(
             keyName = "lock",
             name = "Lock",
