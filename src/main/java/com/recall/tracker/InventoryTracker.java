@@ -9,8 +9,6 @@ import net.runelite.api.events.ItemContainerChanged;
 
 public class InventoryTracker {
 
-    private Client client;
-
     private boolean hasCrystalOfMemories;
 
     public void onItemContainerChanged(ItemContainerChanged event) {
@@ -19,13 +17,7 @@ public class InventoryTracker {
         }
     }
 
-    public InventoryTracker(Client client) {
-        this.client = client;
-    }
-
     public boolean hasCrystalOfMemories() {
-//        return hasCrystalOfMemories;
-        // TODO undo when done testing
-        return true;
+        return hasCrystalOfMemories;
     }
 }

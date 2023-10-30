@@ -1,13 +1,12 @@
 package com.recall;
 
+import net.runelite.api.ChatMessageType;
 import net.runelite.api.events.ChatMessage;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ChatListener {
-//    private static final Joiner pipe = Joiner.on("|");
-//    private static final List<String> REGIONS = Stream.of(RegionShield.values()).map(RegionShield::getRegion).collect(Collectors.toList());
     private static final Pattern LAST_RECALL_STORE_PATTERN = Pattern.compile("Your Crystal of memories stores a memory of your last teleport from .*");
     private static final Pattern LAST_RECALL_MEMORY_PATTERN = Pattern.compile("You Sigil of Last Recall contains a memory of teleporting from .*");
 
@@ -19,10 +18,9 @@ public class ChatListener {
     // heavily borrowed from https://github.com/dekvall/runelite-external-plugins/blob/last-recall/src/main/java/dev/dkvl/lastrecall/LastRecallPlugin.java#L91
     public void onChatMessage(ChatMessage event) {
 
-        // TODO make sure this only does game messages in real league
-//        if (event.getType() != ChatMessageType.GAMEMESSAGE) {
-//            return;
-//        }
+        if (event.getType() != ChatMessageType.GAMEMESSAGE) {
+            return;
+        }
 
         String message = event.getMessage();
 
@@ -39,10 +37,8 @@ public class ChatListener {
     }
 
     public boolean isLastRecallSaved() {
-        // TODO change this back later
         // TODO persist whether its saved or not so when they save something to orb, close runelite, reopen it still knows
         // TODO persist so when they save recall, put it in the bank, log off, and come back and take it out that it still remembers its saved
-//        return isLastRecallSaved;
-        return true;
+        return isLastRecallSaved;
     }
 }

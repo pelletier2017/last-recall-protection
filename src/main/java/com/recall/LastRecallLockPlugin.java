@@ -56,7 +56,7 @@ public class LastRecallLockPlugin extends Plugin {
 
     @Override
     protected void startUp() throws Exception {
-        inventoryTracker = new InventoryTracker(client);
+        inventoryTracker = new InventoryTracker();
         locationTracker = new LocationTracker(client);
         removeAnyInfoBoxes();
     }
@@ -67,24 +67,17 @@ public class LastRecallLockPlugin extends Plugin {
     }
 
     @Subscribe
-    public void onGameStateChanged(GameStateChanged event) {
-        log.debug("onGameStateChanged");
-    }
-
-    @Subscribe
     public void onItemContainerChanged(ItemContainerChanged event) {
         inventoryTracker.onItemContainerChanged(event);
     }
 
     @Subscribe
     public void onPluginChanged(PluginChanged event) {
-        log.debug("onPluginChanged");
         updateInfoBox();
     }
 
     @Subscribe
     public void onGameTick(GameTick event) {
-        log.info("lastRecallWouldReset=" + locationTracker.lastRecallWouldReset());
         updateInfoBox();
     }
 
@@ -115,7 +108,6 @@ public class LastRecallLockPlugin extends Plugin {
             return;
         }
 
-        log.info("onPostMenuSort");
         for (MenuEntry entry : filteredEntries) {
             logMenuEntry(entry);
         }
@@ -126,7 +118,7 @@ public class LastRecallLockPlugin extends Plugin {
     }
 
     private void logMenuEntry(MenuEntry entry) {
-        log.info("onMenuOpened option=[" + entry.getOption() + "] menuType=[" + entry.getType() + "] target=[" + entry.getTarget() + "] itemId=[" + entry.getItemId() + "] itemOp=[" + entry.getItemOp() + "]");
+        log.debug("onMenuOpened option=[" + entry.getOption() + "] menuType=[" + entry.getType() + "] target=[" + entry.getTarget() + "] itemId=[" + entry.getItemId() + "] itemOp=[" + entry.getItemOp() + "]");
     }
 
     private boolean wouldOverrideRecall() {

@@ -11,12 +11,6 @@ public class FullNameSearch extends NameSearch {
 
     @Override
     public boolean matches(String itemName) {
-        // objects sometimes look like "<col=ffff>Portal"
-//        log.debug("name before stripping = " + itemName);
-//        List<String> stringsToRemove = List.of("<col=ffff>", "</col>");
-//        for (String stringToRemove : stringsToRemove) {
-//            itemName = itemName.replaceAll(stringToRemove, "");
-//        }
 
         if (itemName.contains(">")) {
             int startOfNameIndex = itemName.indexOf(">") + 1;
@@ -28,7 +22,7 @@ public class FullNameSearch extends NameSearch {
             int endOfNameIndex = itemName.lastIndexOf("<");
             itemName = itemName.substring(0, endOfNameIndex);
         }
-        log.debug("name after stripping = " + itemName);
+
         return this.searchName.toLowerCase().equals(itemName.toLowerCase());
     }
 }
