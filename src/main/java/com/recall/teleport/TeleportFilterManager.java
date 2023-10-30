@@ -22,7 +22,294 @@ public class TeleportFilterManager {
     private List<TeleportFilter> objectFilters;
 
     public TeleportFilterManager() {
+        // TODO add mory legs, kandarin headgear, scepter, karamja gloves, frem boots, wildy sword,
+        //  master spellbook, seed pod, burning amulet, chronacle, drakens, ring of shadows
+        //  house tabs, master book teleport scrolls
+        // todo do with/without easy teleports plugin AND in inventory and equipped
+
+        // house tabs, redirect house tabs
+        // skill capes
+        // combat bracelet
+        // skills necklace
+        // ring of wealth
+        // ring of returning
+        // digsite pendant
+        // eternal slayer ring
+        // amulet of the eye
+        // ring of the elements
+        // clue reward teleports
+        // go through list of other capes (fishing, max, etc?)
+
         itemFilters = List.of(
+                // capes
+                new TeleportItem(
+                        "farming cape",
+                        List.of(
+                                ItemID.FARMING_CAPE,
+                                ItemID.FARMING_CAPET
+                        ),
+                        List.of("Teleport")),
+                new TeleportItem(
+                        "crafting cape",
+                        List.of(
+                                ItemID.CRAFTING_CAPE,
+                                ItemID.CRAFTING_CAPET
+                        ),
+                        List.of("Teleport")),
+                new TeleportItem(
+                        "quest point cape",
+                        List.of(
+                                ItemID.QUEST_POINT_CAPE,
+                                ItemID.QUEST_POINT_CAPE_T
+                        ),
+                        List.of("Teleport")),
+                new TeleportItem(
+                        "achievement diary cape",
+                        List.of(
+                                ItemID.ACHIEVEMENT_DIARY_CAPE,
+                                ItemID.ACHIEVEMENT_DIARY_CAPE_T
+                        ),
+                        List.of("Teleport")),
+                new TeleportItem(
+                        "music cape",
+                        List.of(
+                                ItemID.MUSIC_CAPE,
+                                ItemID.MUSIC_CAPET
+                        ),
+                        List.of("Teleport")),
+                new TeleportItem(
+                        "mythical cape",
+                        List.of(
+                                ItemID.MYTHICAL_CAPE,
+                                ItemID.MYTHICAL_CAPE_22114
+                        ),
+                        List.of("Teleport")),
+
+                // chargeable items
+                new TeleportItem(
+                        "ring of the elements",
+                        List.of(
+                                ItemID.RING_OF_THE_ELEMENTS,
+                                ItemID.RING_OF_THE_ELEMENTS_26818
+                        ),
+                        List.of("Rub")),
+                new TeleportItem(
+                        "enchanted lyre",
+                        List.of(
+                                ItemID.LYRE,
+                                ItemID.ENCHANTED_LYRE,
+                                ItemID.ENCHANTED_LYRE1,
+                                ItemID.ENCHANTED_LYRE2,
+                                ItemID.ENCHANTED_LYRE3,
+                                ItemID.ENCHANTED_LYRE4,
+                                ItemID.ENCHANTED_LYRE5,
+                                ItemID.ENCHANTED_LYREI
+                        ),
+                        List.of("Play", "Rellekka", "Waterbirth Island", "Neitiznot", "Jatiszo")),
+                new TeleportItem(
+                        "skull sceptre",
+                        List.of(
+                                ItemID.SKULL_SCEPTRE,
+                                ItemID.SKULL_SCEPTRE_I
+                        ),
+                        List.of("Invoke")),
+                new TeleportItem(
+                        "teleport crystal",
+                        List.of(
+                                ItemID.TELEPORT_CRYSTAL,
+                                ItemID.TELEPORT_CRYSTAL_1,
+                                ItemID.TELEPORT_CRYSTAL_2,
+                                ItemID.TELEPORT_CRYSTAL_3,
+                                ItemID.TELEPORT_CRYSTAL_4,
+                                ItemID.TELEPORT_CRYSTAL_5,
+                                ItemID.ETERNAL_TELEPORT_CRYSTAL
+                        ),
+                        List.of("Prifddinas", "Lletya")),
+                new TeleportItem(
+                        "chronicle",
+                        List.of(
+                                ItemID.CHRONICLE
+                        ),
+                        List.of("Teleport")),
+                new TeleportItem(
+                        "pharaoh's sceptre",
+                        List.of(
+                                ItemID.PHARAOHS_SCEPTRE_9045,
+                                ItemID.PHARAOHS_SCEPTRE_9046,
+                                ItemID.PHARAOHS_SCEPTRE_9047,
+                                ItemID.PHARAOHS_SCEPTRE_9048,
+                                ItemID.PHARAOHS_SCEPTRE_9049,
+                                ItemID.PHARAOHS_SCEPTRE_9050,
+                                ItemID.PHARAOHS_SCEPTRE_9051,
+                                ItemID.PHARAOHS_SCEPTRE_13074,
+                                ItemID.PHARAOHS_SCEPTRE_13075,
+                                ItemID.PHARAOHS_SCEPTRE_13076,
+                                ItemID.PHARAOHS_SCEPTRE_13077,
+                                ItemID.PHARAOHS_SCEPTRE_13078,
+                                ItemID.PHARAOHS_SCEPTRE_16176,
+                                ItemID.PHARAOHS_SCEPTRE_21445,
+                                ItemID.PHARAOHS_SCEPTRE_21446,
+                                ItemID.PHARAOHS_SCEPTRE_UNCHARGED
+                        ),
+                        List.of("Teleport", "Last-Teleport", "Pyramid Plunder", "Agility Pyramid", "Ancients Pyramid", "Necropolis", "Jalsavrah", "Jaleustrophos",
+                                "Jaldraocht", "Jaltevas")),
+                new TeleportItem(
+                        "master scroll book",
+                        List.of(
+                                ItemID.MASTER_SCROLL_BOOK,
+                                ItemID.MASTER_SCROLL_BOOK_EMPTY
+                        ),
+                        List.of("Teleport", "Open")),
+
+                // quest teleport items
+                new TeleportItem(
+                        "book of the dead",
+                        List.of(
+                                ItemID.BOOK_OF_THE_DEAD,
+                                ItemID.KHAREDSTS_MEMOIRS
+                        ),
+                        List.of("Reminisce", "Hosidius", "Port Piscarilius", "Shayzien", "Lovakengj", "Arceuus")),
+                new TeleportItem(
+                        "camulet",
+                        List.of(
+                                ItemID.CAMULET
+                        ),
+                        List.of("Rub", "Temple", "Surface")),
+                new TeleportItem(
+                        "ectophial",
+                        List.of(
+                                ItemID.ECTOPHIAL,
+                                ItemID.ECTOPHIAL_4252
+                        ),
+                        List.of("Empty")),
+                new TeleportItem(
+                        "xeric's talisman",
+                        List.of(
+                                ItemID.XERICS_TALISMAN,
+                                ItemID.XERICS_TALISMAN_INERT
+                        ),
+                        // includes "Easy Teleports" plugin
+                        List.of("Rub", "Xeric's Lookout", "Xeric's Glade", "Xeric's Inferno", "Xeric's Heart", "Xeric's Honour", "Shazian", "Hosidius", "Lovakengj",
+                                "Kourend Castle", "Chambers of Xeric")),
+                new TeleportItem(
+                        "drakan's medallion",
+                        List.of(
+                                ItemID.DRAKANS_MEDALLION
+                        ),
+                        // includes "Easy Teleports" plugin
+                        List.of("Ver Sinhaza", "Darkmeyer", "Slepe", "Theatre of Blood", "Vampyre City", "Nightmare")),
+                new TeleportItem(
+                        "ring of shadows",
+                        List.of(
+                                ItemID.RING_OF_SHADOWS,
+                                ItemID.RING_OF_SHADOWS_UNCHARGED
+                        ),
+                        List.of("Teleport", "Ancient Vault", "Ghorrock Dungeon", "The Scar", "Lassar Undercity", "The Stranglewood")),
+                new TeleportItem(
+                        "royal seed pod",
+                        List.of(
+                                ItemID.ROYAL_SEED_POD
+                        ),
+                        List.of("Commune")),
+
+                // diary teleports
+                new TeleportItem(
+                        "kandarin headgear",
+                        List.of(
+                                ItemID.KANDARIN_HEADGEAR,
+                                ItemID.KANDARIN_HEADGEAR_1,
+                                ItemID.KANDARIN_HEADGEAR_2,
+                                ItemID.KANDARIN_HEADGEAR_3,
+                                ItemID.KANDARIN_HEADGEAR_4
+                        ),
+                        List.of("Teleport")),
+                new TeleportItem(
+                        "ardougne cloak",
+                        List.of(
+                                ItemID.ARDOUGNE_CLOAK,
+                                ItemID.ARDOUGNE_CLOAK_1,
+                                ItemID.ARDOUGNE_CLOAK_2,
+                                ItemID.ARDOUGNE_CLOAK_3,
+                                ItemID.ARDOUGNE_CLOAK_4
+                        ),
+                        List.of("Monastery Teleport", "Farm Teleport", "Kandarin Monastery", "Ardougne Farm")),
+                new TeleportItem(
+                        "karamja gloves",
+                        List.of(
+                                ItemID.KARAMJA_GLOVES,
+                                ItemID.KARAMJA_GLOVES_1,
+                                ItemID.KARAMJA_GLOVES_2,
+                                ItemID.KARAMJA_GLOVES_3,
+                                ItemID.KARAMJA_GLOVES_4
+                        ),
+                        List.of("Gem Mine", "Duradel")),
+                new TeleportItem(
+                        "morytania legs",
+                        List.of(
+                                ItemID.MORYTANIA_LEGS,
+                                ItemID.MORYTANIA_LEGS_1,
+                                ItemID.MORYTANIA_LEGS_2,
+                                ItemID.MORYTANIA_LEGS_3,
+                                ItemID.MORYTANIA_LEGS_4
+                        ),
+                        List.of("Ecto Teleport", "Burgh Teleport", "Burgh de Rott", "Ectofuntus Pit")),
+                new TeleportItem(
+                        "fremennik sea boots",
+                        List.of(
+                                ItemID.FREMENNIK_SEA_BOOTS,
+                                ItemID.FREMENNIK_SEA_BOOTS_1,
+                                ItemID.FREMENNIK_SEA_BOOTS_2,
+                                ItemID.FREMENNIK_SEA_BOOTS_3,
+                                ItemID.FREMENNIK_SEA_BOOTS_4
+                        ),
+                        List.of("Teleport")),
+                new TeleportItem(
+                        "wilderness sword",
+                        List.of(
+                                ItemID.WILDERNESS_SWORD,
+                                ItemID.WILDERNESS_SWORD_1,
+                                ItemID.WILDERNESS_SWORD_2,
+                                ItemID.WILDERNESS_SWORD_3,
+                                ItemID.WILDERNESS_SWORD_4
+                        ),
+                        List.of("Teleport")),
+                new TeleportItem(
+                        "rada's blessing",
+                        List.of(
+                                ItemID.RADAS_BLESSING,
+                                ItemID.RADAS_BLESSING_1,
+                                ItemID.RADAS_BLESSING_2,
+                                ItemID.RADAS_BLESSING_3,
+                                ItemID.RADAS_BLESSING_4
+                        ),
+                        List.of("Kourend Woodland", "Mount Karuulm")),
+                new TeleportItem(
+                        "desert amulet",
+                        List.of(
+                                ItemID.DESERT_AMULET,
+                                ItemID.DESERT_AMULET_1,
+                                ItemID.DESERT_AMULET_2,
+                                ItemID.DESERT_AMULET_3,
+                                ItemID.DESERT_AMULET_4
+                        ),
+                        List.of("Nardah", "Kalphite cave")),
+                new TeleportItem(
+                        "ghommal's hilt",
+                        List.of(
+                                ItemID.GHOMMALS_HILT_1,
+                                ItemID.GHOMMALS_HILT_2,
+                                ItemID.GHOMMALS_HILT_3,
+                                ItemID.GHOMMALS_HILT_4,
+                                ItemID.GHOMMALS_HILT_5,
+                                ItemID.GHOMMALS_HILT_6,
+                                ItemID.GHOMMALS_AVERNIC_DEFENDER_5,
+                                ItemID.GHOMMALS_AVERNIC_DEFENDER_5_L,
+                                ItemID.GHOMMALS_AVERNIC_DEFENDER_6,
+                                ItemID.GHOMMALS_AVERNIC_DEFENDER_6_L
+                        ),
+                        List.of("Trollheim", "Mor Ul Rek")),
+
+                // teleport jewelry
                 new TeleportItem(
                         "necklace of passage",
                         List.of(
@@ -32,7 +319,7 @@ public class TeleportFilterManager {
                                 ItemID.NECKLACE_OF_PASSAGE4,
                                 ItemID.NECKLACE_OF_PASSAGE5
                         ),
-                        List.of("Wizard's Tower", "The Outpost", "Eagles' Eyrie", "Rub")),
+                        List.of("Wizards' Tower", "The Outpost", "Eagles' Eyrie", "Rub")),
                 new TeleportItem(
                         "games necklace",
                         List.of(
@@ -45,7 +332,7 @@ public class TeleportFilterManager {
                                 ItemID.GAMES_NECKLACE7,
                                 ItemID.GAMES_NECKLACE8
                         ),
-                        List.of("Barbarian Outpost", "Corporeal Beast", "Tears of Guthix", "Wintertodt Camp", "Rub")),
+                        List.of("Burthorpe", "Barbarian Outpost", "Corporeal Beast", "Tears of Guthix", "Wintertodt Camp", "Rub")),
                 new TeleportItem(
                         "ring of dueling",
                         List.of(
@@ -143,7 +430,17 @@ public class TeleportFilterManager {
                                 ItemID.SLAYER_RING_7,
                                 ItemID.SLAYER_RING_8
                         ),
-                        List.of("Teleport", "Rub"))
+                        List.of("Teleport", "Rub")),
+                new TeleportItem(
+                        "burning amulet",
+                        List.of(
+                                ItemID.BURNING_AMULET1,
+                                ItemID.BURNING_AMULET2,
+                                ItemID.BURNING_AMULET3,
+                                ItemID.BURNING_AMULET4,
+                                ItemID.BURNING_AMULET5
+                        ),
+                        List.of("Rub", "Chaos Temple", "Bandit Camp", "Lava Maze"))
 
         );
 

@@ -12,7 +12,7 @@ public class FullNameSearch extends NameSearch {
     @Override
     public boolean matches(String itemName) {
         // objects sometimes look like "<col=ffff>Portal"
-        log.debug("name before stripping = " + itemName);
+//        log.debug("name before stripping = " + itemName);
 //        List<String> stringsToRemove = List.of("<col=ffff>", "</col>");
 //        for (String stringToRemove : stringsToRemove) {
 //            itemName = itemName.replaceAll(stringToRemove, "");

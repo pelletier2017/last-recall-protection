@@ -1,18 +1,16 @@
 package com.recall;
 
 import com.recall.infobox.InfoBoxGenerator;
+import com.recall.tracker.InventoryTracker;
 import com.recall.teleport.TeleportFilterManager;
-import com.recall.location.LocationHelper;
+import com.recall.tracker.LocationTracker;
 import com.google.inject.Provides;
 
 import javax.inject.Inject;
 
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
-import net.runelite.api.events.ChatMessage;
-import net.runelite.api.events.GameStateChanged;
-import net.runelite.api.events.GameTick;
-import net.runelite.api.events.PostMenuSort;
+import net.runelite.api.events.*;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
@@ -45,6 +43,10 @@ public class LastRecallLockPlugin extends Plugin {
     @Inject
     private InfoBoxManager infoBoxManager;
 
+    private InventoryTracker inventoryTracker;
+
+    private LocationTracker locationTracker;
+
     private final InfoBoxGenerator infoBoxGenerator = new InfoBoxGenerator(this);
 
     private InfoBox oldInfoBox;
@@ -54,6 +56,8 @@ public class LastRecallLockPlugin extends Plugin {
 
     @Override
     protected void startUp() throws Exception {
+        inventoryTracker = new InventoryTracker(client);
+        locationTracker = new LocationTracker(client);
         removeAnyInfoBoxes();
     }
 
@@ -68,6 +72,11 @@ public class LastRecallLockPlugin extends Plugin {
     }
 
     @Subscribe
+    public void onItemContainerChanged(ItemContainerChanged event) {
+        inventoryTracker.onItemContainerChanged(event);
+    }
+
+    @Subscribe
     public void onPluginChanged(PluginChanged event) {
         log.debug("onPluginChanged");
         updateInfoBox();
@@ -75,6 +84,7 @@ public class LastRecallLockPlugin extends Plugin {
 
     @Subscribe
     public void onGameTick(GameTick event) {
+        log.info("lastRecallWouldReset=" + locationTracker.lastRecallWouldReset());
         updateInfoBox();
     }
 
@@ -120,7 +130,7 @@ public class LastRecallLockPlugin extends Plugin {
     }
 
     private boolean wouldOverrideRecall() {
-        return hasOrbInInventory() && LocationHelper.lastRecallWouldReset(client) && chatListener.isLastRecallSaved();
+        return inventoryTracker.hasCrystalOfMemories() && locationTracker.lastRecallWouldReset() && chatListener.isLastRecallSaved();
     }
 
     private void updateInfoBox() {
@@ -130,16 +140,11 @@ public class LastRecallLockPlugin extends Plugin {
         }
         oldInfoBox = newInfoBox;
 
-        if (hasOrbInInventory()) {
+        if (inventoryTracker.hasCrystalOfMemories()) {
             addInfoBox(newInfoBox);
         } else {
             removeAnyInfoBoxes();
         }
-    }
-
-    private boolean hasOrbInInventory() {
-        // TODO replace this with checking if its in your inventory
-        return config.hasRecallOrb();
     }
 
     private InfoBox getCurrentInfoBox() {

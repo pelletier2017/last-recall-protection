@@ -15,15 +15,7 @@ public interface LastRecallLockConfig extends Config {
         return false;
     }
 
-    @ConfigItem(
-            keyName = "recallInInventory",
-            name = "Recall in Inventory",
-            description = "DEBUG whether you have orb in inventory or not"
-    )
-    default boolean hasRecallOrb() {
-        return true;
-    }
-
+    // TODO add config to blacklist certain teleports that I may have forgotten
     // TODO add config to whitelist certain teleports to not block them
     // TODO add option to hide right click but default is off
     // TODO add examples to comments for whitelist so people know format, ideally in config panel but last resort goes in README
