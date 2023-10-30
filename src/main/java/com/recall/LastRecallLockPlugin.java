@@ -120,7 +120,7 @@ public class LastRecallLockPlugin extends Plugin {
     }
 
     private boolean wouldOverrideRecall() {
-        return hasRecallOrb() && LocationHelper.lastRecallWouldReset(client) && chatListener.isLastRecallSaved();
+        return hasOrbInInventory() && LocationHelper.lastRecallWouldReset(client) && chatListener.isLastRecallSaved();
     }
 
     private void updateInfoBox() {
@@ -130,14 +130,14 @@ public class LastRecallLockPlugin extends Plugin {
         }
         oldInfoBox = newInfoBox;
 
-        if (hasRecallOrb()) {
+        if (hasOrbInInventory()) {
             addInfoBox(newInfoBox);
         } else {
             removeAnyInfoBoxes();
         }
     }
 
-    private boolean hasRecallOrb() {
+    private boolean hasOrbInInventory() {
         // TODO replace this with checking if its in your inventory
         return config.hasRecallOrb();
     }
