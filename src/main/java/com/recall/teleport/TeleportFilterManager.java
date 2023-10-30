@@ -28,7 +28,6 @@ public class TeleportFilterManager {
         // todo do with/without easy teleports plugin AND in inventory and equipped
 
         // house tabs, redirect house tabs
-        // skill capes
         // combat bracelet
         // skills necklace
         // ring of wealth
@@ -36,9 +35,8 @@ public class TeleportFilterManager {
         // digsite pendant
         // eternal slayer ring
         // amulet of the eye
-        // ring of the elements
         // clue reward teleports
-        // go through list of other capes (fishing, max, etc?)
+        // go through list of other skill capes (fishing, max, etc?)
 
         itemFilters = List.of(
                 // capes
@@ -189,7 +187,7 @@ public class TeleportFilterManager {
                                 ItemID.XERICS_TALISMAN_INERT
                         ),
                         // includes "Easy Teleports" plugin
-                        List.of("Rub", "Xeric's Lookout", "Xeric's Glade", "Xeric's Inferno", "Xeric's Heart", "Xeric's Honour", "Shazian", "Hosidius", "Lovakengj",
+                        List.of("Rub", "Xeric's Lookout", "Xeric's Glade", "Xeric's Inferno", "Xeric's Heart", "Xeric's Honour", "Shayzien", "Hosidius", "Lovakengj",
                                 "Kourend Castle", "Chambers of Xeric")),
                 new TeleportItem(
                         "drakan's medallion",
@@ -204,7 +202,8 @@ public class TeleportFilterManager {
                                 ItemID.RING_OF_SHADOWS,
                                 ItemID.RING_OF_SHADOWS_UNCHARGED
                         ),
-                        List.of("Teleport", "Ancient Vault", "Ghorrock Dungeon", "The Scar", "Lassar Undercity", "The Stranglewood")),
+                        List.of("Teleport", "Ancient Vault", "Ghorrock Dungeon", "The Scar", "Lassar Undercity", "The Stranglewood", "DT2 Vault", "Duke Sucellus",
+                                "Leviathan", "Whisperer", "Vardorvis")),
                 new TeleportItem(
                         "royal seed pod",
                         List.of(
@@ -345,7 +344,7 @@ public class TeleportFilterManager {
                                 ItemID.RING_OF_DUELING7,
                                 ItemID.RING_OF_DUELING8
                         ),
-                        List.of("PvP Arena", "Castle Wars", "Ferox Enclave", "Rub")),
+                        List.of("PvP Arena", "Castle Wars", "Ferox Enclave", "Rub", "Duel Arena")),
                 new TeleportItem(
                         "digsite pendant",
                         List.of(
