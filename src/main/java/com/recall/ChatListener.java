@@ -40,6 +40,8 @@ public class ChatListener {
 
     public boolean isLastRecallSaved() {
         // TODO change this back later
+        // TODO persist whether its saved or not so when they save something to orb, close runelite, reopen it still knows
+        // TODO persist so when they save recall, put it in the bank, log off, and come back and take it out that it still remembers its saved
 //        return isLastRecallSaved;
         return true;
     }

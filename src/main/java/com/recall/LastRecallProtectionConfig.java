@@ -7,12 +7,21 @@ import net.runelite.client.config.ConfigItem;
 @ConfigGroup("lastRecallProtection")
 public interface LastRecallProtectionConfig extends Config {
     @ConfigItem(
-            keyName = "lockRecall",
-            name = "Lock Recall",
+            keyName = "lock",
+            name = "Lock",
             description = "Will remove teleport options to avoid overriding recall teleport"
     )
-    default boolean lockRecall() {
+    default boolean isLocked() {
         return false;
+    }
+
+    @ConfigItem(
+            keyName = "recallInInventory",
+            name = "Recall in Inventory",
+            description = "DEBUG whether you have orb in inventory or not"
+    )
+    default boolean hasRecallOrb() {
+        return true;
     }
 
     // TODO add config to whitelist certain teleports to not block them
