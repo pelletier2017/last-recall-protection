@@ -115,7 +115,6 @@ public class LastRecallProtectionPlugin extends Plugin {
             logMenuEntry(entry);
         }
         if (isLockingRecall()) {
-//            log.debug("Filtering teleports");
             MenuEntry[] filteredMenuEntries = teleportFilterManager.filterAll(client.getMenuEntries());
             client.setMenuEntries(filteredMenuEntries);
         }
