@@ -117,7 +117,8 @@ public class TeleportFilterManager {
                         List.of(
                                 ItemID.TELEPORT_TO_HOUSE
                         ),
-                        List.of("Break", "Inside", "Outside", "Group")),
+                        // TODO bug adding teleport to house spell here because for some reason it overrides when both are named "teleport to house"
+                        List.of("Break", "Inside", "Outside", "Group", "Cast", "Group: Choose", "Group: Previous")),
                 new TeleportItem(
                         "pollnivneach teleport",
                         List.of(

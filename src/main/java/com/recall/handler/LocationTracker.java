@@ -1,10 +1,9 @@
-package com.recall.tracker;
+package com.recall.handler;
 
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 
 import javax.inject.Inject;
-import java.util.Arrays;
 
 @Slf4j
 public class LocationTracker {
@@ -20,7 +19,7 @@ public class LocationTracker {
 
     private boolean isInHouse() {
         int[] regions = client.getMapRegions();
-        log.debug("regions=" + Arrays.toString(regions) + " and houseRegion=" + HOUSE_REGION);
+//        log.debug("regions=" + Arrays.toString(regions) + " and houseRegion=" + HOUSE_REGION);
         return client.isInInstancedRegion() && regions.length > 0 && regions[0] == HOUSE_REGION;
     }
 

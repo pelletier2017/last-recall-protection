@@ -1,13 +1,10 @@
-package com.recall.tracker;
+package com.recall.handler;
 
-import lombok.Getter;
-import net.runelite.api.Client;
 import net.runelite.api.InventoryID;
-import net.runelite.api.Item;
 import net.runelite.api.ItemID;
 import net.runelite.api.events.ItemContainerChanged;
 
-public class InventoryTracker {
+public class InventoryHandler {
 
     private boolean hasCrystalOfMemories;
 

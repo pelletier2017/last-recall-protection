@@ -1,4 +1,4 @@
-package com.recall.tracker;
+package com.recall.handler;
 
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.events.ChatMessage;
@@ -6,7 +6,7 @@ import net.runelite.api.events.ChatMessage;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ChatTracker {
+public class ChatHandler {
     private static final Pattern LAST_RECALL_STORE_PATTERN = Pattern.compile("Your Crystal of memories stores a memory of your last teleport from .*");
     private static final Pattern LAST_RECALL_MEMORY_PATTERN = Pattern.compile("You Sigil of Last Recall contains a memory of teleporting from .*");
 

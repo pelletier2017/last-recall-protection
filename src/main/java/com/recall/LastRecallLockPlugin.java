@@ -1,11 +1,11 @@
 package com.recall;
 
-import com.recall.ui.OverlayMouseListener;
-import com.recall.ui.infobox.InfoBoxGenerator;
-import com.recall.tracker.ChatTracker;
-import com.recall.tracker.InventoryTracker;
+import com.recall.ui.overlay.LockedOverlay;
+import com.recall.ui.overlay.OverlayMouseListener;
+import com.recall.handler.ChatHandler;
+import com.recall.handler.InventoryHandler;
 import com.recall.teleport.TeleportFilterManager;
-import com.recall.tracker.LocationTracker;
+import com.recall.handler.LocationTracker;
 import com.google.inject.Provides;
 
 import javax.inject.Inject;
@@ -20,7 +20,7 @@ import net.runelite.client.events.PluginChanged;
 import net.runelite.client.input.MouseManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.ui.overlay.infobox.InfoBox;
+import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 
 import java.util.Arrays;
@@ -38,7 +38,7 @@ public class LastRecallLockPlugin extends Plugin {
     private LastRecallLockConfig config;
 
     @Inject
-    private ChatTracker chatTracker;
+    private ChatHandler chatHandler;
 
     @Inject
     private TeleportFilterManager teleportFilterManager;
@@ -47,64 +47,64 @@ public class LastRecallLockPlugin extends Plugin {
     private InfoBoxManager infoBoxManager;
 
     @Inject
+    private OverlayManager overlayManager;
+
+    @Inject
     private MouseManager mouseManager;
 
     // handlers
 
     @Inject
-    private InventoryTracker inventoryTracker;
+    private InventoryHandler inventoryHandler;
 
     @Inject
     private LocationTracker locationTracker;
 
     @Inject
-    private InfoBoxGenerator infoBoxGenerator;
+    private LockedOverlay lockedOverlay;
 
     @Inject
     private OverlayMouseListener overlayMouseListener;
 
-    private InfoBox oldInfoBox;
-
     // applies after menu entry swapper and other plugins
-    private static final int POST_MENU_SORT_PRIORITY = -20;
+    private static final int POST_MENU_SORT_PRIORITY = 100;
 
     @Override
     protected void startUp() throws Exception {
         mouseManager.registerMouseListener(overlayMouseListener);
-        removeAnyInfoBoxes();
+        overlayManager.add(lockedOverlay);
     }
 
     @Override
     protected void shutDown() throws Exception {
-        removeAnyInfoBoxes();
+//        removeAnyInfoBoxes();
     }
-
-
 
     @Subscribe
     public void onItemContainerChanged(ItemContainerChanged event) {
-        inventoryTracker.onItemContainerChanged(event);
+        inventoryHandler.onItemContainerChanged(event);
     }
 
     @Subscribe
     public void onPluginChanged(PluginChanged event) {
-        updateInfoBox();
+        updateOverlay();
     }
 
     @Subscribe
     public void onGameTick(GameTick event) {
-        updateInfoBox();
+        // TODO make this on region change
+        updateOverlay();
     }
 
     @Subscribe
     public void onConfigChanged(ConfigChanged event) {
-        updateInfoBox();
+        updateOverlay();
     }
 
     @Subscribe
     public void onChatMessage(ChatMessage event) {
-        chatTracker.onChatMessage(event);
-        log.debug("isLastRecallSaved=" + chatTracker.isLastRecallSaved());
+        chatHandler.onChatMessage(event);
+        log.debug("isLastRecallSaved=" + chatHandler.isLastRecallSaved());
     }
 
 // Inspired by the official runelite menu entry swapper plugin, with some modification.
@@ -124,7 +124,7 @@ public class LastRecallLockPlugin extends Plugin {
         }
 
         for (MenuEntry entry : filteredEntries) {
-            logMenuEntry(entry);
+            log.debug("onMenuOpened option=[" + entry.getOption() + "] menuType=[" + entry.getType() + "] target=[" + entry.getTarget() + "] itemId=[" + entry.getItemId() + "] itemOp=[" + entry.getItemOp() + "]");
         }
         if (config.isLocked() && wouldOverrideRecall()) {
             MenuEntry[] filteredMenuEntries = teleportFilterManager.filterAll(client.getMenuEntries());
@@ -132,48 +132,18 @@ public class LastRecallLockPlugin extends Plugin {
         }
     }
 
-    private void logMenuEntry(MenuEntry entry) {
-        log.debug("onMenuOpened option=[" + entry.getOption() + "] menuType=[" + entry.getType() + "] target=[" + entry.getTarget() + "] itemId=[" + entry.getItemId() + "] itemOp=[" + entry.getItemOp() + "]");
+    private void updateOverlay() {
+//        boolean hide = config.hideOverlay() || !inventoryTracker.hasCrystalOfMemories();
+        boolean hide = config.hideOverlay() || !config.hasOrb();
+        lockedOverlay.setHidden(hide);
+        lockedOverlay.setLocked(config.isLocked());
+        lockedOverlay.setWouldResetRecall(wouldOverrideRecall());
     }
 
     private boolean wouldOverrideRecall() {
-        return inventoryTracker.hasCrystalOfMemories() && locationTracker.lastRecallWouldReset() && chatTracker.isLastRecallSaved();
-    }
-
-    private void updateInfoBox() {
-        InfoBox newInfoBox = getCurrentInfoBox();
-        if (newInfoBox != oldInfoBox) {
-            removeAnyInfoBoxes();
-        }
-        oldInfoBox = newInfoBox;
-
-        if (inventoryTracker.hasCrystalOfMemories()) {
-            addInfoBox(newInfoBox);
-        } else {
-            removeAnyInfoBoxes();
-        }
-    }
-
-    private InfoBox getCurrentInfoBox() {
-        if (!config.isLocked()) {
-            return infoBoxGenerator.getUnlockedInfoBox();
-        } else if (wouldOverrideRecall()) {
-            return infoBoxGenerator.getLockedInfoBox();
-        } else {
-            return infoBoxGenerator.getSemiLockedInfoBox();
-        }
-    }
-
-    private void addInfoBox(InfoBox infoBox) {
-        if (!infoBoxManager.getInfoBoxes().contains(infoBox)) {
-            infoBoxManager.addInfoBox(infoBox);
-        }
-    }
-
-    private void removeAnyInfoBoxes() {
-        for (InfoBox infoBox : infoBoxGenerator.getInfoBoxes()) {
-            infoBoxManager.removeInfoBox(infoBox);
-        }
+        // TODO just for testing
+//        return inventoryTracker.hasCrystalOfMemories() && locationTracker.lastRecallWouldReset() && chatTracker.isLastRecallSaved();
+        return config.hasOrb() && config.hasRecallSaved() && locationTracker.lastRecallWouldReset();
     }
 
     @Provides
