@@ -7,18 +7,9 @@ import net.runelite.client.config.ConfigItem;
 @ConfigGroup("lastRecallLock")
 public interface LastRecallLockConfig extends Config {
     @ConfigItem(
-            keyName = "lock",
-            name = "Lock",
-            description = "Will remove teleport options to avoid overriding recall teleport"
-    )
-    default boolean isLocked() {
-        return false;
-    }
-
-    @ConfigItem(
             keyName = "hideOverlay",
             name = "Hide Overlay",
-            description = "Hides overlay"
+            description = "Hides overlay and disables locking"
     )
     default boolean hideOverlay() {
         return false;

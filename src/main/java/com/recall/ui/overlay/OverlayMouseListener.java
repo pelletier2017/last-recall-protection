@@ -1,5 +1,6 @@
 package com.recall.ui.overlay;
 
+import com.recall.LastRecallLockConfig;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.input.MouseListener;
 
@@ -12,11 +13,15 @@ public class OverlayMouseListener implements MouseListener {
     @Inject
     private LockedOverlay lockedOverlay;
 
+    @Inject
+    private LastRecallLockConfig config;
+
     @Override
     public MouseEvent mouseClicked(MouseEvent mouseEvent) {
         log.info("mouseClicked");
-        lockedOverlay.setHovered(!lockedOverlay.isHovered());
-        log.info("isHovered=" + lockedOverlay.isHovered());
+//        lockedOverlay.setHovered(!lockedOverlay.isHovered());
+        lockedOverlay.setLocked(!lockedOverlay.isLocked());
+        log.info("isLocked=" + lockedOverlay.isLocked());
         return mouseEvent;
     }
 

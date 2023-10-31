@@ -2,14 +2,17 @@ package com.recall.ui.overlay;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.components.InfoBoxComponent;
 import net.runelite.client.util.ImageUtil;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 // heavily borrowed from https://github.com/damencs/tob-qol/blob/master/src/main/java/com/tobqol/rooms/nylocas/commons/NyloSelectionBox.java
+@Slf4j
 public class LockedOverlay extends Overlay {
 
     private static final String ICON_FILE_NAME = "CrystalMemoir.png";
@@ -20,7 +23,7 @@ public class LockedOverlay extends Overlay {
 
     @Getter
     @Setter
-    private boolean isLocked = false;
+    private volatile boolean isLocked = false;
 
     @Getter
     @Setter
@@ -59,6 +62,7 @@ public class LockedOverlay extends Overlay {
             component.setColor(Color.YELLOW);
             component.setText("Lock");
         }
+        log.info("render isLocked=" + isLocked + " wouldResetRecall=" + wouldResetRecall);
 
         Dimension result = component.render(graphics);
 

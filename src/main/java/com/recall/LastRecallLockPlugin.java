@@ -69,6 +69,10 @@ public class LastRecallLockPlugin extends Plugin {
     // applies after menu entry swapper and other plugins
     private static final int POST_MENU_SORT_PRIORITY = 100;
 
+    // TODO hover over lock should change its color by drawing a border, tells user that hovering does something
+    // TODO on clicking the orb, set config lock to off
+
+
     @Override
     protected void startUp() throws Exception {
         mouseManager.registerMouseListener(overlayMouseListener);
@@ -126,7 +130,7 @@ public class LastRecallLockPlugin extends Plugin {
         for (MenuEntry entry : filteredEntries) {
             log.debug("onMenuOpened option=[" + entry.getOption() + "] menuType=[" + entry.getType() + "] target=[" + entry.getTarget() + "] itemId=[" + entry.getItemId() + "] itemOp=[" + entry.getItemOp() + "]");
         }
-        if (config.isLocked() && wouldOverrideRecall()) {
+        if (!lockedOverlay.isHidden() && lockedOverlay.isLocked() && wouldOverrideRecall()) {
             MenuEntry[] filteredMenuEntries = teleportFilterManager.filterAll(client.getMenuEntries());
             client.setMenuEntries(filteredMenuEntries);
         }
@@ -136,7 +140,6 @@ public class LastRecallLockPlugin extends Plugin {
 //        boolean hide = config.hideOverlay() || !inventoryTracker.hasCrystalOfMemories();
         boolean hide = config.hideOverlay() || !config.hasOrb();
         lockedOverlay.setHidden(hide);
-        lockedOverlay.setLocked(config.isLocked());
         lockedOverlay.setWouldResetRecall(wouldOverrideRecall());
     }
 
