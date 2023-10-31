@@ -3,6 +3,7 @@ package com.recall.tracker;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 
+import javax.inject.Inject;
 import java.util.Arrays;
 
 @Slf4j
@@ -12,6 +13,7 @@ public class LocationTracker {
 
     private final Client client;
 
+    @Inject
     public LocationTracker(Client client) {
         this.client = client;
     }

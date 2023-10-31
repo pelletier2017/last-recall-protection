@@ -1,25 +1,22 @@
 package com.recall.infobox;
 
 import lombok.Getter;
-import net.runelite.client.plugins.Plugin;
 import net.runelite.client.ui.overlay.infobox.InfoBox;
 
+import javax.inject.Inject;
 import java.util.List;
 
 @Getter
 public class InfoBoxGenerator {
 
-    private final InfoBox lockedInfoBox;
+    @Inject
+    private LockedInfoBox lockedInfoBox;
 
-    private final InfoBox semiLockedInfoBox;
+    @Inject
+    private SemiLockedInfoBox semiLockedInfoBox;
 
-    private final InfoBox unlockedInfoBox;
-
-    public InfoBoxGenerator(Plugin plugin) {
-        lockedInfoBox = new LockedInfoBox(plugin);
-        semiLockedInfoBox = new SemiLockedInfoBox(plugin);
-        unlockedInfoBox = new UnlockedInfoBox(plugin);
-    }
+    @Inject
+    private UnlockedInfoBox unlockedInfoBox;
 
     public List<InfoBox> getInfoBoxes() {
         return List.of(lockedInfoBox, semiLockedInfoBox, unlockedInfoBox);

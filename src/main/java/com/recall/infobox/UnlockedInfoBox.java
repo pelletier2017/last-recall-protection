@@ -1,12 +1,15 @@
 package com.recall.infobox;
 
+import com.recall.LastRecallLockPlugin;
 import net.runelite.client.plugins.Plugin;
 
+import javax.inject.Inject;
 import java.awt.*;
 
 public class UnlockedInfoBox extends BaseInfoBox {
 
-    public UnlockedInfoBox(Plugin plugin) {
+    @Inject
+    public UnlockedInfoBox(LastRecallLockPlugin plugin) {
         super(plugin);
     }
 

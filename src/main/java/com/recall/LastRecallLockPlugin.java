@@ -43,11 +43,14 @@ public class LastRecallLockPlugin extends Plugin {
     @Inject
     private InfoBoxManager infoBoxManager;
 
+    @Inject
     private InventoryTracker inventoryTracker;
 
+    @Inject
     private LocationTracker locationTracker;
 
-    private final InfoBoxGenerator infoBoxGenerator = new InfoBoxGenerator(this);
+    @Inject
+    private InfoBoxGenerator infoBoxGenerator;
 
     private InfoBox oldInfoBox;
 
@@ -56,8 +59,6 @@ public class LastRecallLockPlugin extends Plugin {
 
     @Override
     protected void startUp() throws Exception {
-        inventoryTracker = new InventoryTracker();
-        locationTracker = new LocationTracker(client);
         removeAnyInfoBoxes();
     }
 
