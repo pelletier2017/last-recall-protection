@@ -1,6 +1,8 @@
 package com.recall;
 
-import com.recall.infobox.InfoBoxGenerator;
+import com.recall.ui.OverlayMouseListener;
+import com.recall.ui.infobox.InfoBoxGenerator;
+import com.recall.tracker.ChatTracker;
 import com.recall.tracker.InventoryTracker;
 import com.recall.teleport.TeleportFilterManager;
 import com.recall.tracker.LocationTracker;
@@ -15,6 +17,7 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.events.PluginChanged;
+import net.runelite.client.input.MouseManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.infobox.InfoBox;
@@ -35,13 +38,18 @@ public class LastRecallLockPlugin extends Plugin {
     private LastRecallLockConfig config;
 
     @Inject
-    private ChatListener chatListener;
+    private ChatTracker chatTracker;
 
     @Inject
     private TeleportFilterManager teleportFilterManager;
 
     @Inject
     private InfoBoxManager infoBoxManager;
+
+    @Inject
+    private MouseManager mouseManager;
+
+    // handlers
 
     @Inject
     private InventoryTracker inventoryTracker;
@@ -52,6 +60,9 @@ public class LastRecallLockPlugin extends Plugin {
     @Inject
     private InfoBoxGenerator infoBoxGenerator;
 
+    @Inject
+    private OverlayMouseListener overlayMouseListener;
+
     private InfoBox oldInfoBox;
 
     // applies after menu entry swapper and other plugins
@@ -59,6 +70,7 @@ public class LastRecallLockPlugin extends Plugin {
 
     @Override
     protected void startUp() throws Exception {
+        mouseManager.registerMouseListener(overlayMouseListener);
         removeAnyInfoBoxes();
     }
 
@@ -66,6 +78,8 @@ public class LastRecallLockPlugin extends Plugin {
     protected void shutDown() throws Exception {
         removeAnyInfoBoxes();
     }
+
+
 
     @Subscribe
     public void onItemContainerChanged(ItemContainerChanged event) {
@@ -89,8 +103,8 @@ public class LastRecallLockPlugin extends Plugin {
 
     @Subscribe
     public void onChatMessage(ChatMessage event) {
-        chatListener.onChatMessage(event);
-        log.debug("isLastRecallSaved=" + chatListener.isLastRecallSaved());
+        chatTracker.onChatMessage(event);
+        log.debug("isLastRecallSaved=" + chatTracker.isLastRecallSaved());
     }
 
 // Inspired by the official runelite menu entry swapper plugin, with some modification.
@@ -123,7 +137,7 @@ public class LastRecallLockPlugin extends Plugin {
     }
 
     private boolean wouldOverrideRecall() {
-        return inventoryTracker.hasCrystalOfMemories() && locationTracker.lastRecallWouldReset() && chatListener.isLastRecallSaved();
+        return inventoryTracker.hasCrystalOfMemories() && locationTracker.lastRecallWouldReset() && chatTracker.isLastRecallSaved();
     }
 
     private void updateInfoBox() {

@@ -1,4 +1,4 @@
-package com.recall.infobox;
+package com.recall.ui.infobox;
 
 import lombok.Getter;
 import net.runelite.client.ui.overlay.infobox.InfoBox;

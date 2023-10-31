@@ -1,15 +1,14 @@
-package com.recall.infobox;
+package com.recall.ui.infobox;
 
 import com.recall.LastRecallLockPlugin;
-import net.runelite.client.plugins.Plugin;
-import javax.inject.Inject;
 
+import javax.inject.Inject;
 import java.awt.*;
 
-public class LockedInfoBox extends BaseInfoBox {
+public class SemiLockedInfoBox extends BaseInfoBox {
 
     @Inject
-    public LockedInfoBox(LastRecallLockPlugin plugin) {
+    public SemiLockedInfoBox(LastRecallLockPlugin plugin) {
         super(plugin);
     }
 
@@ -20,6 +19,6 @@ public class LockedInfoBox extends BaseInfoBox {
 
     @Override
     public Color getTextColor() {
-        return Color.RED;
+        return Color.YELLOW;
     }
 }

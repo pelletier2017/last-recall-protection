@@ -1,7 +1,6 @@
-package com.recall.infobox;
+package com.recall.ui.infobox;
 
 import com.recall.LastRecallLockPlugin;
-import net.runelite.client.plugins.Plugin;
 import net.runelite.client.ui.overlay.infobox.InfoBox;
 import net.runelite.client.util.ImageUtil;
 

@@ -1,7 +1,6 @@
-package com.recall.infobox;
+package com.recall.ui.infobox;
 
 import com.recall.LastRecallLockPlugin;
-import net.runelite.client.plugins.Plugin;
 
 import javax.inject.Inject;
 import java.awt.*;
