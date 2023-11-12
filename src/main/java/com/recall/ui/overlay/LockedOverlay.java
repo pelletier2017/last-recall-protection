@@ -3,10 +3,13 @@ package com.recall.ui.overlay;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.Client;
 import net.runelite.client.ui.overlay.Overlay;
+import net.runelite.client.ui.overlay.OverlayUtil;
 import net.runelite.client.ui.overlay.components.InfoBoxComponent;
 import net.runelite.client.util.ImageUtil;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -39,23 +42,18 @@ public class LockedOverlay extends Overlay {
     @Setter
     private boolean isHidden = false;
 
-    private final InfoBoxComponent component;
+    @Inject
+    private Client client;
 
-    private int loggingCount = 0;
+    private final InfoBoxComponent component;
 
     public LockedOverlay() {
         this.component = new InfoBoxComponent();
         component.setImage(imageIcon);
-//        component.setBackgroundColor(Color.BLACK);
     }
 
     @Override
     public Dimension render(Graphics2D graphics) {
-        loggingCount++;
-        if (loggingCount > 50) {
-            loggingCount = 0;
-//            log.info("isLocked=" + isLocked);
-        }
 
         if (isHidden) {
             return null;

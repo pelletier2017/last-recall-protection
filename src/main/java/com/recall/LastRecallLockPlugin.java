@@ -20,6 +20,8 @@ import net.runelite.client.events.PluginChanged;
 import net.runelite.client.input.MouseManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.stretchedmode.StretchedModeConfig;
+import net.runelite.client.plugins.stretchedmode.StretchedModePlugin;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 
@@ -69,19 +71,19 @@ public class LastRecallLockPlugin extends Plugin {
     // applies after menu entry swapper and other plugins
     private static final int POST_MENU_SORT_PRIORITY = 100;
 
-    // TODO hover over lock should change its color by drawing a border, tells user that hovering does something
-    // TODO on clicking the orb, set config lock to off
-    // TODO fix issue where onMouseClick cant change isLocked because its on a dif thread, atomic boolean?
-
     @Override
     protected void startUp() throws Exception {
-        mouseManager.registerMouseListener(0, overlayMouseListener);
         overlayManager.add(lockedOverlay);
+        mouseManager.registerMouseListener(0, overlayMouseListener);
+
+        // effectively restart stretched mode to fix hitbox on overlay
+        client.setStretchedEnabled(false);
+        client.invalidateStretching(true);
     }
 
     @Override
     protected void shutDown() throws Exception {
-//        removeAnyInfoBoxes();
+        overlayManager.remove(lockedOverlay);
     }
 
     @Subscribe
@@ -96,7 +98,6 @@ public class LastRecallLockPlugin extends Plugin {
 
     @Subscribe
     public void onGameTick(GameTick event) {
-        // TODO make this on region change
         updateOverlay();
     }
 
@@ -108,7 +109,6 @@ public class LastRecallLockPlugin extends Plugin {
     @Subscribe
     public void onChatMessage(ChatMessage event) {
         chatHandler.onChatMessage(event);
-        log.debug("isLastRecallSaved=" + chatHandler.isLastRecallSaved());
     }
 
 // Inspired by the official runelite menu entry swapper plugin, with some modification.
@@ -127,9 +127,6 @@ public class LastRecallLockPlugin extends Plugin {
             return;
         }
 
-//        for (MenuEntry entry : filteredEntries) {
-//            log.debug("onMenuOpened option=[" + entry.getOption() + "] menuType=[" + entry.getType() + "] target=[" + entry.getTarget() + "] itemId=[" + entry.getItemId() + "] itemOp=[" + entry.getItemOp() + "]");
-//        }
         if (!lockedOverlay.isHidden() && lockedOverlay.isLocked() && wouldOverrideRecall()) {
             MenuEntry[] filteredMenuEntries = teleportFilterManager.filterAll(client.getMenuEntries());
             client.setMenuEntries(filteredMenuEntries);
@@ -137,17 +134,14 @@ public class LastRecallLockPlugin extends Plugin {
     }
 
     private void updateOverlay() {
-//        log.info("onGameTick isLocked=" + config.)
-//        boolean hide = config.hideOverlay() || !inventoryTracker.hasCrystalOfMemories();
         boolean hide = config.hideOverlay() || !config.hasOrb();
         lockedOverlay.setHidden(hide);
         lockedOverlay.setWouldResetRecall(wouldOverrideRecall());
     }
 
     private boolean wouldOverrideRecall() {
-        // TODO just for testing
-//        return inventoryTracker.hasCrystalOfMemories() && locationTracker.lastRecallWouldReset() && chatTracker.isLastRecallSaved();
-        return config.hasOrb() && config.hasRecallSaved() && locationTracker.lastRecallWouldReset();
+        return inventoryHandler.hasCrystalOfMemories() && locationTracker.lastRecallWouldReset() && chatHandler.isLastRecallSaved();
+//        return config.hasOrb() && config.hasRecallSaved() && locationTracker.lastRecallWouldReset();
     }
 
     @Provides
