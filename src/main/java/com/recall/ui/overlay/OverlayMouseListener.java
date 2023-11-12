@@ -11,7 +11,7 @@ import java.awt.event.MouseEvent;
 public class OverlayMouseListener implements MouseListener {
 
     @Inject
-    private LockedOverlay lockedOverlay;
+    private volatile LockedOverlay lockedOverlay;
 
     @Inject
     private LastRecallLockConfig config;
@@ -21,7 +21,7 @@ public class OverlayMouseListener implements MouseListener {
         log.info("mouseClicked");
 //        lockedOverlay.setHovered(!lockedOverlay.isHovered());
         lockedOverlay.setLocked(!lockedOverlay.isLocked());
-        log.info("isLocked=" + lockedOverlay.isLocked());
+        log.info("mouse listener isLocked=" + lockedOverlay.isLocked());
         return mouseEvent;
     }
 

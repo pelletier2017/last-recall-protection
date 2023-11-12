@@ -71,7 +71,7 @@ public class LastRecallLockPlugin extends Plugin {
 
     // TODO hover over lock should change its color by drawing a border, tells user that hovering does something
     // TODO on clicking the orb, set config lock to off
-
+    // TODO fix issue where onMouseClick cant change isLocked because its on a dif thread, atomic boolean?
 
     @Override
     protected void startUp() throws Exception {
@@ -137,6 +137,7 @@ public class LastRecallLockPlugin extends Plugin {
     }
 
     private void updateOverlay() {
+//        log.info("onGameTick isLocked=" + config.)
 //        boolean hide = config.hideOverlay() || !inventoryTracker.hasCrystalOfMemories();
         boolean hide = config.hideOverlay() || !config.hasOrb();
         lockedOverlay.setHidden(hide);
