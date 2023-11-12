@@ -75,7 +75,7 @@ public class LastRecallLockPlugin extends Plugin {
 
     @Override
     protected void startUp() throws Exception {
-        mouseManager.registerMouseListener(overlayMouseListener);
+        mouseManager.registerMouseListener(0, overlayMouseListener);
         overlayManager.add(lockedOverlay);
     }
 
@@ -127,9 +127,9 @@ public class LastRecallLockPlugin extends Plugin {
             return;
         }
 
-        for (MenuEntry entry : filteredEntries) {
-            log.debug("onMenuOpened option=[" + entry.getOption() + "] menuType=[" + entry.getType() + "] target=[" + entry.getTarget() + "] itemId=[" + entry.getItemId() + "] itemOp=[" + entry.getItemOp() + "]");
-        }
+//        for (MenuEntry entry : filteredEntries) {
+//            log.debug("onMenuOpened option=[" + entry.getOption() + "] menuType=[" + entry.getType() + "] target=[" + entry.getTarget() + "] itemId=[" + entry.getItemId() + "] itemOp=[" + entry.getItemOp() + "]");
+//        }
         if (!lockedOverlay.isHidden() && lockedOverlay.isLocked() && wouldOverrideRecall()) {
             MenuEntry[] filteredMenuEntries = teleportFilterManager.filterAll(client.getMenuEntries());
             client.setMenuEntries(filteredMenuEntries);

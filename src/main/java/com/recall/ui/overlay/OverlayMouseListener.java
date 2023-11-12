@@ -2,38 +2,57 @@ package com.recall.ui.overlay;
 
 import com.recall.LastRecallLockConfig;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.client.input.MouseListener;
+import net.runelite.client.input.MouseAdapter;
 
 import javax.inject.Inject;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 
 @Slf4j
-public class OverlayMouseListener implements MouseListener {
+public class OverlayMouseListener extends MouseAdapter {
 
     @Inject
-    private volatile LockedOverlay lockedOverlay;
+    private LockedOverlay lockedOverlay;
 
     @Inject
     private LastRecallLockConfig config;
 
     @Override
     public MouseEvent mouseClicked(MouseEvent mouseEvent) {
-        log.info("mouseClicked");
+        if (lockedOverlay.isHidden() || mouseEvent.isAltDown()) {
+            return mouseEvent;
+        }
+//        log.info("mouseClicked");
 //        lockedOverlay.setHovered(!lockedOverlay.isHovered());
-        lockedOverlay.setLocked(!lockedOverlay.isLocked());
-        log.info("mouse listener isLocked=" + lockedOverlay.isLocked());
+        if (mouseEvent.getButton() == MouseEvent.BUTTON1 && isOnOverlay(mouseEvent)) {
+            lockedOverlay.setLocked(!lockedOverlay.isLocked());
+            mouseEvent.consume();
+        }
+//        log.info("mouse listener isLocked=" + lockedOverlay.isLocked());
         return mouseEvent;
     }
 
     @Override
     public MouseEvent mousePressed(MouseEvent mouseEvent) {
-        log.info("mousePressed");
+        if (lockedOverlay.isHidden() || mouseEvent.isAltDown()) {
+            return mouseEvent;
+        }
+
+        if (mouseEvent.getButton() == MouseEvent.BUTTON1 && isOnOverlay(mouseEvent)) {
+            mouseEvent.consume();
+        }
         return mouseEvent;
     }
 
     @Override
     public MouseEvent mouseReleased(MouseEvent mouseEvent) {
-        log.info("mouseReleased");
+        if (lockedOverlay.isHidden() || mouseEvent.isAltDown()) {
+            return mouseEvent;
+        }
+
+        if (mouseEvent.getButton() == MouseEvent.BUTTON1 && isOnOverlay(mouseEvent)) {
+            mouseEvent.consume();
+        }
         return mouseEvent;
     }
 
@@ -55,7 +74,25 @@ public class OverlayMouseListener implements MouseListener {
 
     @Override
     public MouseEvent mouseMoved(MouseEvent mouseEvent) {
-//        log.info("mouseMoved");
+        if (mouseEvent.isAltDown()) {
+            lockedOverlay.setHovered(false);
+        } else {
+            lockedOverlay.setHovered(isOnOverlay(mouseEvent));
+        }
         return mouseEvent;
+    }
+
+    private boolean isOnOverlay(MouseEvent mouseEvent) {
+        Point point = mouseEvent.getPoint();
+        Rectangle rectangle = lockedOverlay.getBounds();
+
+        // move rectangle to line up hitbox correctly
+        Rectangle copy = new Rectangle(rectangle);
+        copy.translate(rectangle.height/5, rectangle.height/2);
+
+//        log.info(point.toString());
+//        log.info(rectangle.toString());
+//        log.info(copy.toString());
+        return copy.contains(point);
     }
 }

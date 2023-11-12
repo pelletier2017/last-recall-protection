@@ -54,7 +54,7 @@ public class LockedOverlay extends Overlay {
         loggingCount++;
         if (loggingCount > 50) {
             loggingCount = 0;
-            log.info("isLocked=" + isLocked);
+//            log.info("isLocked=" + isLocked);
         }
 
         if (isHidden) {
