@@ -3,7 +3,6 @@ package com.recall.ui.overlay;
 import com.recall.LastRecallLockConfig;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.input.MouseAdapter;
-import net.runelite.client.plugins.stretchedmode.StretchedModePlugin;
 
 import javax.inject.Inject;
 import java.awt.*;

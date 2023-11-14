@@ -1,18 +1,20 @@
 package com.recall;
 
-import com.recall.ui.overlay.LockedOverlay;
-import com.recall.ui.overlay.OverlayMouseListener;
+import com.google.inject.Provides;
 import com.recall.handler.ChatHandler;
 import com.recall.handler.InventoryHandler;
-import com.recall.teleport.TeleportFilterManager;
 import com.recall.handler.LocationTracker;
-import com.google.inject.Provides;
-
-import javax.inject.Inject;
-
+import com.recall.teleport.TeleportFilterManager;
+import com.recall.ui.overlay.LockedOverlay;
+import com.recall.ui.overlay.OverlayMouseListener;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.*;
-import net.runelite.api.events.*;
+import net.runelite.api.Client;
+import net.runelite.api.MenuAction;
+import net.runelite.api.MenuEntry;
+import net.runelite.api.events.ChatMessage;
+import net.runelite.api.events.GameTick;
+import net.runelite.api.events.ItemContainerChanged;
+import net.runelite.api.events.PostMenuSort;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
@@ -20,11 +22,10 @@ import net.runelite.client.events.PluginChanged;
 import net.runelite.client.input.MouseManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.stretchedmode.StretchedModeConfig;
-import net.runelite.client.plugins.stretchedmode.StretchedModePlugin;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 
+import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
 
@@ -111,7 +112,7 @@ public class LastRecallLockPlugin extends Plugin {
         chatHandler.onChatMessage(event);
     }
 
-// Inspired by the official runelite menu entry swapper plugin, with some modification.
+    // Inspired by the official runelite menu entry swapper plugin, with some modification.
     @Subscribe(priority = POST_MENU_SORT_PRIORITY)
     // This will run after the normal menu entry swapper, so it won't interfere with this plugin.
     public void onPostMenuSort(PostMenuSort ignored) {
@@ -134,13 +135,12 @@ public class LastRecallLockPlugin extends Plugin {
     }
 
     private void updateOverlay() {
-        boolean hide = config.hideOverlay() || !config.hasOrb();
-        lockedOverlay.setHidden(hide);
+        lockedOverlay.setHidden(!inventoryHandler.hasCrystalOfMemories());
         lockedOverlay.setWouldResetRecall(wouldOverrideRecall());
     }
 
     private boolean wouldOverrideRecall() {
-        return inventoryHandler.hasCrystalOfMemories() && locationTracker.lastRecallWouldReset() && chatHandler.isLastRecallSaved();
+        return inventoryHandler.hasCrystalOfMemories() && chatHandler.isLastRecallSaved() && locationTracker.lastRecallWouldReset();
 //        return config.hasOrb() && config.hasRecallSaved() && locationTracker.lastRecallWouldReset();
     }
 

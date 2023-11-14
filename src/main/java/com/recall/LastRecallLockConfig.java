@@ -6,14 +6,6 @@ import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("lastRecallLock")
 public interface LastRecallLockConfig extends Config {
-    @ConfigItem(
-            keyName = "hideOverlay",
-            name = "Hide Overlay",
-            description = "Hides overlay and disables locking"
-    )
-    default boolean hideOverlay() {
-        return false;
-    }
 
     // just for testing
 //    @ConfigItem(
@@ -33,8 +25,4 @@ public interface LastRecallLockConfig extends Config {
 //    default boolean hasRecallSaved() {
 //        return false;
 //    }
-
-    // TODO add config to blacklist certain teleports that I may have forgotten
-    // TODO add config to whitelist certain teleports to not block them
-    // TODO add examples to comments for whitelist so people know format, ideally in config panel but last resort goes in README
 }

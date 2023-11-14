@@ -1,9 +1,9 @@
 package com.recall.teleport;
 
-import com.recall.teleport.filter.TeleportItem;
-import com.recall.teleport.filter.TeleportSpell;
 import com.recall.teleport.filter.TeleportFilter;
+import com.recall.teleport.filter.TeleportItem;
 import com.recall.teleport.filter.TeleportObject;
+import com.recall.teleport.filter.TeleportSpell;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ItemID;
 import net.runelite.api.MenuEntry;

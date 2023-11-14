@@ -19,7 +19,6 @@ public class LocationTracker {
 
     private boolean isInHouse() {
         int[] regions = client.getMapRegions();
-//        log.debug("regions=" + Arrays.toString(regions) + " and houseRegion=" + HOUSE_REGION);
         return client.isInInstancedRegion() && regions.length > 0 && regions[0] == HOUSE_REGION;
     }
 

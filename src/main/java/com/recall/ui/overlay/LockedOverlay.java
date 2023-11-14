@@ -5,7 +5,6 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.client.ui.overlay.Overlay;
-import net.runelite.client.ui.overlay.OverlayUtil;
 import net.runelite.client.ui.overlay.components.InfoBoxComponent;
 import net.runelite.client.util.ImageUtil;
 
@@ -13,7 +12,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 // heavily borrowed from https://github.com/damencs/tob-qol/blob/master/src/main/java/com/tobqol/rooms/nylocas/commons/NyloSelectionBox.java
 @Slf4j
