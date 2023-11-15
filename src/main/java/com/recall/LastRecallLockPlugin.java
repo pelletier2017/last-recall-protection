@@ -85,16 +85,12 @@ public class LastRecallLockPlugin extends Plugin {
     @Override
     protected void shutDown() throws Exception {
         overlayManager.remove(lockedOverlay);
+        mouseManager.unregisterMouseListener(overlayMouseListener);
     }
 
     @Subscribe
     public void onItemContainerChanged(ItemContainerChanged event) {
         inventoryHandler.onItemContainerChanged(event);
-    }
-
-    @Subscribe
-    public void onPluginChanged(PluginChanged event) {
-        updateOverlay();
     }
 
     @Subscribe
@@ -141,7 +137,6 @@ public class LastRecallLockPlugin extends Plugin {
 
     private boolean wouldOverrideRecall() {
         return inventoryHandler.hasCrystalOfMemories() && chatHandler.isLastRecallSaved() && locationTracker.lastRecallWouldReset();
-//        return config.hasOrb() && config.hasRecallSaved() && locationTracker.lastRecallWouldReset();
     }
 
     @Provides
